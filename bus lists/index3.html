@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Booking UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .booking-card {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            height: 150px; /* Ensures the card has a consistent rectangle shape */
+            position: relative;
+        }
+
+        .center-details {
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+		
+		.center-details1 {
+            position: absolute;
+            top: 50%;
+            left: 45%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+		
+		.center-details2 {
+            position: absolute;
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+		
+		.center-details3 {
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .center-details .highlight {
+            font-size: 16px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+            margin-right: 20px;
+        }
+
+        .details {
+            font-size: 14px;
+            color: #333;
+			
+        }
+
+        .details div {
+            margin: 5px 0;
+			
+        }
+
+        .time {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .flex-ticket, .live-tracking {
+            display: inline-block;
+            margin: 5px;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .live-tracking {
+            background-color: #e0f7e8;
+            color: #005b00;
+        }
+
+        .right-section {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .rating {
+            display: inline-block;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .price {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .discount {
+            font-size: 14px;
+            text-decoration: line-through;
+            color: #888;
+            margin-left: 10px;
+        }
+
+        .seats {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .view-seats {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #d32f2f;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .view-seats:hover {
+            background-color: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-card">
+        <div class="left-section">
+            <div class="logo">Primo</div>
+            <div class="details">
+                <div>VKV Travels</div>
+				<div>AC Sleeper (2+1)</div>
+                
+                
+                
+                <div>
+                    <span class="flex-ticket">Flex Ticket</span>
+                    <span class="live-tracking">Live Tracking</span>
+                </div>
+            </div>
+        </div>
+       
+		
+		<div class="center-details">
+			<div class="time">18:00</div>
+			
+			<div>Chennai</div>
+            
+        </div>
+		<div class="center-details2">
+			<div class="time">07:15</div>
+			
+			<div>Tiruchendur</div>
+            
+        </div>
+		<div class="center-details1">
+			 <div>13h 15m</div>
+			 <div>29-Nov</div>
+            
+        </div>
+		<div class="center-details3">
+			<div class="rating">4.9</div>
+            
+        </div>
+        <div class="right-section">
+            
+            <div>
+                <span class="price">₹ 1270</span>
+                <span class="discount">₹ 1320</span>
+            </div>
+            <div class="seats">28 Seats available | 8 Single</div>
+            <a href="index4.html" class="view-seats">View Seats</a>
+        </div>
+    </div>
+	 <script>
+    // Function to detect the operating system
+    function detectOS() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      } else if (/windows/i.test(userAgent)) {
+        return "Windows";
+      }
+      return "Unknown";
+    }
+
+    // Apply changes based on the OS
+    function applyOSChanges() {
+      const os = detectOS();
+      const body = document.body;
+      const message = document.getElementById('message');
+
+      if (os === "Android") {
+        body.classList.add('android');
+        message.textContent = "You are using an Android device!";
+      } else if (os === "Windows") {
+        body.classList.add('windows');
+        message.textContent = "You are using a Windows device!";
+      } else {
+        message.textContent = "Operating system not recognized.";
+      }
+    }
+
+    // Call the function on page load
+    applyOSChanges();
+  </script>
+</body>
+</html>

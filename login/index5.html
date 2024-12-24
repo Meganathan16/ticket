@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f3f3;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+        .form-group .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 65%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .toggle {
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #007BFF;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <div id="signup-form">
+            <h2>Signup</h2>
+            <form id="signup-form-element">
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required>
+                    <div class="error" id="signup-email-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required>
+                    <span class="toggle-password" id="signup-toggle-password">👁</span>
+                    <div class="error" id="signup-password-error"></div>
+                </div>
+                <button type="submit">Signup</button>
+            </form>
+            <div class="toggle" id="show-login">Already have an account? Login</div>
+        </div>
+
+        <div id="login-form" class="hidden">
+            <h2>Login</h2>
+            <form id="login-form-element">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                    <div class="error" id="login-email-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                    <span class="toggle-password" id="login-toggle-password">👁</span>
+                    <div class="error" id="login-password-error"></div>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <div class="toggle" id="show-signup">Don't have an account? Signup</div>
+        </div>
+    </div>
+
+    <script>
+        const signupForm = document.getElementById('signup-form');
+        const loginForm = document.getElementById('login-form');
+        const showLogin = document.getElementById('show-login');
+        const showSignup = document.getElementById('show-signup');
+
+        const signupTogglePassword = document.getElementById('signup-toggle-password');
+        const loginTogglePassword = document.getElementById('login-toggle-password');
+        const signupPassword = document.getElementById('signup-password');
+        const loginPassword = document.getElementById('login-password');
+
+        showLogin.addEventListener('click', () => {
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        showSignup.addEventListener('click', () => {
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+        });
+
+        signupTogglePassword.addEventListener('click', () => {
+            togglePasswordVisibility(signupPassword, signupTogglePassword);
+        });
+
+        loginTogglePassword.addEventListener('click', () => {
+            togglePasswordVisibility(loginPassword, loginTogglePassword);
+        });
+
+        function togglePasswordVisibility(passwordField, toggleIcon) {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.textContent = '👁';
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.textContent = '🙈';
+            }
+        }
+
+        function isStrongPassword(password) {
+            const strongPasswordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            return strongPasswordRegex.test(password);
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Handle Signup
+        document.getElementById('signup-form-element').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            // Retrieve existing users from localStorage
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Check if the email already exists
+            const emailExists = existingUsers.some(user => user.email === email);
+
+            if (emailExists) {
+                document.getElementById('signup-email-error').textContent = 'This email is already registered.';
+                return;
+            } else {
+                document.getElementById('signup-email-error').textContent = '';
+            }
+
+            if (!isValidEmail(email)) {
+                document.getElementById('signup-email-error').textContent = 'Please enter a valid email address.';
+                return;
+            } else {
+                document.getElementById('signup-email-error').textContent = '';
+            }
+
+            if (!isStrongPassword(password)) {
+                document.getElementById('signup-password-error').textContent = 'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.';
+                return;
+            } else {
+                document.getElementById('signup-password-error').textContent = '';
+            }
+
+            // Save user details to localStorage
+            existingUsers.push({ email, password });
+            localStorage.setItem('users', JSON.stringify(existingUsers));
+
+            alert('Signup successful! You can now login.');
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+
+        // Handle Login
+        document.getElementById('login-form-element').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+            const user = existingUsers.find(user => user.email === email);
+
+            if (!user) {
+                document.getElementById('login-email-error').textContent = 'Email does not match our records.';
+                return;
+            } else {
+                document.getElementById('login-email-error').textContent = '';
+            }
+
+            if (user.password !== password) {
+                document.getElementById('login-password-error').textContent = 'Incorrect password. Please try again.';
+                return;
+            } else {
+                document.getElementById('login-password-error').textContent = '';
+            }
+
+            alert('Login successful! Redirecting...');
+            window.location.href = 'index.html'; // Redirect to a welcome page
+        });
+    </script>
+	 <script>
+    // Function to detect the operating system
+    function detectOS() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      } else if (/windows/i.test(userAgent)) {
+        return "Windows";
+      }
+      return "Unknown";
+    }
+
+    // Apply changes based on the OS
+    function applyOSChanges() {
+      const os = detectOS();
+      const body = document.body;
+      const message = document.getElementById('message');
+
+      if (os === "Android") {
+        body.classList.add('android');
+        message.textContent = "You are using an Android device!";
+      } else if (os === "Windows") {
+        body.classList.add('windows');
+        message.textContent = "You are using a Windows device!";
+      } else {
+        message.textContent = "Operating system not recognized.";
+      }
+    }
+
+    // Call the function on page load
+    applyOSChanges();
+  </script>
+</body>
+</html>

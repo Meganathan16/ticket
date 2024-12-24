@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .seat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .deck {
+            margin-bottom: 20px;
+        }
+        .deck-title {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .seat-row {
+            display: flex;
+            justify-content: flex-start;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+        .seat {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 35px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .available {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .unavailable {
+            background-color: #eeeeee;
+            color: #9e9e9e;
+            cursor: not-allowed;
+        }
+        .female {
+            background-color: #ffcccb;
+            color: #c62828;
+        }
+        .male {
+            background-color: #bbdefb;
+            color: #1565c0;
+        }
+        .selected {
+            border: 2px solid #000;
+            background-color: #d1c4e9;
+        }
+        .seat-legend {
+            margin-top: 20px;
+        }
+        .seat-legend div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .seat-legend div span {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 2px solid #444;
+        }
+        .price-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .price-button {
+            padding: 8px 12px;
+            border: 1px solid #444;
+            background: #f0f0f0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .price-button.active {
+            background: #444;
+            color: #fff;
+        }
+        .summary {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .continue-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .continue-button:disabled {
+            background-color: #9e9e9e;
+            cursor: not-allowed;
+        }
+        .gender-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .gender-button {
+            padding: 8px 12px;
+            border: 1px solid #444;
+            background: #f0f0f0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .gender-button.active {
+            background: #444;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Seat Selection</h1>
+
+    <div class="price-options">
+        <button class="price-button active" data-price="ALL">ALL</button>
+        <button class="price-button" data-price="550">550</button>
+        <button class="price-button" data-price="600">600</button>
+        <button class="price-button" data-price="800">800</button>
+        <button class="price-button" data-price="900">900</button>
+        <button class="price-button" data-price="950">950</button>
+        <button class="price-button" data-price="1000">1000</button>
+    </div>
+
+    <div class="gender-options">
+        <button class="gender-button active" data-gender="ALL">ALL</button>
+        <button class="gender-button" data-gender="F">Female</button>
+        <button class="gender-button" data-gender="M">Male</button>
+    </div>
+
+    <div class="seat-container">
+        <div class="deck">
+            <div class="deck-title">Lower Deck</div>
+            <div class="seat-row">
+                <div class="seat unavailable">1</div>
+                <div class="seat unavailable">2</div>
+                <div class="seat available" data-price="800">3</div>
+                <div class="seat available" data-price="800">4</div>
+				<div class="seat available" data-price="900">5</div>
+				<div class="seat available" data-price="900">6</div>
+				<div class="seat available" data-price="800">7</div>
+				<div class="seat unavailable">8</div>
+			</div>
+			<div class="seat-row">
+				<div class="seat unavailable">9</div>
+				<div class="seat available" data-price="1000">10</div>
+				<div class="seat available" data-price="1000">11</div>
+				<div class="seat available" data-price="950">12</div>
+				<div class="seat available" data-price="950">13</div>
+				<div class="seat unavailable">14</div>
+				<div class="seat unavailable">15</div>
+			</div>
+		</div>
+		<div class="deck">
+			<div class="deck-title">Upper Deck</div>
+			<div class="seat-row">
+				<div class="seat available" data-price="550">16</div>
+				<div class="seat available" data-price="550">17</div>
+				<div class="seat available" data-price="600">18</div>
+				<div class="seat available" data-price="600">19</div>
+				<div class="seat unavailable">20</div>
+				<div class="seat unavailable">21</div>
+				<div class="seat unavailable">22</div>
+			</div>
+			<div class="seat-row">
+				<div class="seat available" data-price="800">23</div>
+				<div class="seat available" data-price="800">24</div>
+				<div class="seat available" data-price="950">25</div>
+				<div class="seat available" data-price="950">26</div>
+				<div class="seat unavailable">27</div>
+				<div class="seat unavailable">28</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="seat-legend">
+		<h3>Legend:</h3>
+		<div><span class="seat available"></span> Available Seat</div>
+		<div><span class="seat unavailable"></span> Unavailable Seat</div>
+		<div><span class="seat selected"></span> Selected Seat</div>
+		<div><span class="seat female"></span> Female Seat</div>
+		<div><span class="seat male"></span> Male Seat</div>
+	</div>
+
+	<div class="summary">
+		Selected Seats: <span id="selected-seats">0</span><br>
+		Total Price: <span id="total-price">0</span>
+	</div>
+
+	<button id="continue-button" class="continue-button" disabled>Continue</button>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+    const seats = document.querySelectorAll('.seat-container .seat');
+    const selectedSeatsDisplay = document.getElementById('selected-seats');
+    const totalPriceDisplay = document.getElementById('total-price');
+    const continueButton = document.getElementById('continue-button');
+    const priceButtons = document.querySelectorAll('.price-button');
+    const genderButtons = document.querySelectorAll('.gender-button');
+
+    let selectedSeats = [];
+    let totalPrice = 0;
+
+    // Simulate the current user's unique identifier
+    const currentUser = "user123";
+
+    function updateSummary() {
+        selectedSeatsDisplay.textContent = selectedSeats.length;
+        totalPriceDisplay.textContent = totalPrice;
+        continueButton.disabled = selectedSeats.length === 0;
+    }
+
+    function filterSeats(priceFilter, genderFilter) {
+        seats.forEach(seat => {
+            const seatPrice = seat.dataset.price;
+            const seatOwner = seat.dataset.owner || null;
+
+            if (seat.classList.contains('unavailable') && seatOwner !== currentUser) {
+                return;
+            }
+
+            if ((priceFilter === 'ALL' || seatPrice === priceFilter) && (genderFilter === 'ALL' || seatOwner === null || seatOwner === currentUser)) {
+                seat.style.display = '';
+            } else {
+                seat.style.display = 'none';
+            }
+        });
+    }
+
+    priceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            priceButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const selectedPrice = button.dataset.price;
+            const selectedGender = document.querySelector('.gender-button.active').dataset.gender;
+
+            filterSeats(selectedPrice, selectedGender);
+        });
+    });
+
+    genderButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            genderButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            const selectedGender = button.dataset.gender;
+            const selectedPrice = document.querySelector('.price-button.active').dataset.price;
+
+            filterSeats(selectedPrice, selectedGender);
+        });
+    });
+
+    seats.forEach(seat => {
+        seat.addEventListener('click', () => {
+            const seatPrice = parseInt(seat.dataset.price, 10);
+            const seatOwner = seat.dataset.owner || null;
+
+            if (seat.classList.contains('unavailable') && seatOwner !== currentUser) return;
+
+            if (seat.classList.contains('selected') && seatOwner === currentUser) {
+                seat.classList.remove('selected');
+                seat.classList.remove('female'); // Remove user-specific styling if needed
+                delete seat.dataset.owner;
+                selectedSeats = selectedSeats.filter(selectedSeat => selectedSeat !== seat);
+                totalPrice -= seatPrice;
+            } else if (!seat.classList.contains('unavailable')) {
+                seat.classList.add('selected');
+                seat.classList.add('female'); // Mark as reserved for female (example styling)
+                seat.dataset.owner = currentUser;
+                selectedSeats.push(seat);
+                totalPrice += seatPrice;
+            }
+
+            updateSummary();
+        });
+    });
+});
+
+</script>
+<script>
+    // Function to detect the operating system
+    function detectOS() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) {
+        return "Android";
+      } else if (/windows/i.test(userAgent)) {
+        return "Windows";
+      }
+      return "Unknown";
+    }
+
+    // Apply changes based on the OS
+    function applyOSChanges() {
+      const os = detectOS();
+      const body = document.body;
+      const message = document.getElementById('message');
+
+      if (os === "Android") {
+        body.classList.add('android');
+        message.textContent = "You are using an Android device!";
+      } else if (os === "Windows") {
+        body.classList.add('windows');
+        message.textContent = "You are using a Windows device!";
+      } else {
+        message.textContent = "Operating system not recognized.";
+      }
+    }
+
+    // Call the function on page load
+    applyOSChanges();
+</script>
+</body>
+</html>
+
