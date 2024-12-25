@@ -119,7 +119,7 @@
                     const date = document.getElementById('date').value;
                     if (from && to && date) {
                         const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
-                        window.location.href = 'bus lists/index3.html' + queryString;
+                        location.href = 'bus lists/index3.html' + queryString;
                     } else {
                         alert('Please fill out all fields.');
                     }
