@@ -110,32 +110,31 @@
         <label for="date"></label>
         <input type="date" id="date" name="date" placeholder="Date:" required><br><br>
 
-        <button type="button" id="searchBtn" onclick="location.href='bus lists/index3.html'">Search Buses</button>
+        <button type="button" id="searchBtn" onclick="location.href='index3.html'">Search Buses</button>
     </form>
 </div>
 
 <script src="script.js"></script>
 <script>
-    // Initialize AOS (Animation on Scroll)
-    AOS.init();
+        // Initialize AOS (Animation on Scroll)
+        AOS.init();
 
-    // Handle the "Search Buses" button click
-    document.getElementById("searchBtn").onclick = function() {
-        const from = document.getElementById("from").value;
-        const to = document.getElementById("to").value;
-        const date = document.getElementById("date").value;
+        // Handle the "Search Buses" button click
+        document.getElementById("searchBtn").onclick = function() {
+            const from = document.getElementById("from").value;
+            const to = document.getElementById("to").value;
+            const date = document.getElementById("date").value;
 
-        if (from && to && date) {
-            const queryString = ?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)};
-            // Add your bus search logic here
-            // For example, redirect to another page or call an API
-            console.log("Query String:", queryString); // Debugging
-             location.href = /bus lists/index3.html${queryString};
-        } else {
-            alert("Please fill out all fields.");
-        }
-    };
-</script>
+            if (from && to && date) {
+                const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+				window.location.href = `index3.html${queryString}`;
+                // Add your bus search logic here
+                // You can replace the alert with actual API calls or page navigation.
+            } else {
+                alert("Please fill out all fields.");
+            }
+        };
+    </script>
 <script>
     // Function to detect the operating system
     function detectOS() {
