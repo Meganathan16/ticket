@@ -6,12 +6,12 @@
     <title>Ticket Booking</title>
     <link rel="stylesheet" href="Style.css">
     <style>
-		*{
-			padding: 0;
-			margin: 0;
-			font-family: Arial, Helvetica, sans-serif;
-			box-sizing: border-box;
-		}
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
         /* Style the form popup */
         #ticketForm {
             display: block;
@@ -21,7 +21,7 @@
 
         /* Optional styling */
         .form-container {
-			height: 65vh;
+            height: 65vh;
             text-align: center;
             padding: 45px;
             background-color: rgba(255, 255, 255, 0.8);
@@ -39,7 +39,7 @@
             font-size: 16px;
             width: 100%;
         }
-        
+
         body {
             width: 100%;
             margin: 0;
@@ -49,12 +49,12 @@
             background-size: cover;
             background-position: center center;
         }
-        
+
         input::placeholder {
-            color: #000000; 
+            color: #000000;
             font-weight: bold;
         }
-        
+
         nav {
             width: 100%;
             height: 10vh;
@@ -62,7 +62,6 @@
             justify-content: space-around;
             align-items: center;
             color: white;
-            
         }
 
         nav .logo {
@@ -83,93 +82,92 @@
         nav .links a:hover {
             text-decoration: underline;
         }
-
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">
-            <h1>Bus</h1>
-        </div>
-        <div class="links">
-            <div class="link" data-aos="fade-up" data-aos-duration="1200"><a href="#">Home</a></div>
-            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100"><a href="#">About</a></div>
-            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200"><a href="#">Services</a></div>
-            <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600"><a href="#">Contact</a></div>
-        </div>
-    </nav>
-
-    <div class="form-container" id="ticketForm">
-        <h2>Book Your Bus Ticket</h2>
-        <form id="busForm">
-            <label for="from"></label>
-            <input type="text" id="from" name="from" placeholder="From:" required><br><br>
-
-            <label for="to"></label>
-            <input type="text" id="to" name="to" placeholder="To:" required><br><br>
-
-            <label for="date"></label>
-            <input type="date" id="date" name="date" placeholder="Date:" required><br><br>
-		<button 
-                type="button" 
-                onclick="
-                    const from = document.getElementById('from').value.trim();
-                    const to = document.getElementById('to').value.trim();
-                    const date = document.getElementById('date').value;
-                    if (from && to && date) {
-                        const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
-                        location.href = 'bus lists/index3.html' + queryString;
-                    } else {
-                        alert('Please fill out all fields.');
-                    }
-                ">
-                Search Buses
-            </button>
-            </form>
+<nav>
+    <div class="logo">
+        <h1>Bus</h1>
     </div>
+    <div class="links">
+        <div class="link" data-aos="fade-up" data-aos-duration="1200"><a href="#">Home</a></div>
+        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100"><a href="#">About</a></div>
+        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200"><a href="#">Services</a></div>
+        <div class="link" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600"><a href="#">Contact</a></div>
+    </div>
+</nav>
 
-    <script src="script.js"></script>
-    <script>
-        // Initialize AOS (Animation on Scroll)
-        AOS.init();
+<div class="form-container" id="ticketForm">
+    <h2>Book Your Bus Ticket</h2>
+    <form id="busForm">
+        <label for="from"></label>
+        <input type="text" id="from" name="from" placeholder="From:" required><br><br>
 
-       
+        <label for="to"></label>
+        <input type="text" id="to" name="to" placeholder="To:" required><br><br>
 
+        <label for="date"></label>
+        <input type="date" id="date" name="date" placeholder="Date:" required><br><br>
 
-    </script>
-	 <script>
+        <button type="button" id="searchBtn" onclick="location.href='bus lists/index3.html'">Search Buses</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+<script>
+    // Initialize AOS (Animation on Scroll)
+    AOS.init();
+
+    // Handle the "Search Buses" button click
+    document.getElementById("searchBtn").onclick = function() {
+        const from = document.getElementById("from").value;
+        const to = document.getElementById("to").value;
+        const date = document.getElementById("date").value;
+
+        if (from && to && date) {
+            const queryString = ?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)};
+            // Add your bus search logic here
+            // For example, redirect to another page or call an API
+            console.log("Query String:", queryString); // Debugging
+            // Example: window.location.href = /search${queryString};
+        } else {
+            alert("Please fill out all fields.");
+        }
+    };
+</script>
+<script>
     // Function to detect the operating system
     function detectOS() {
-      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
-      if (/android/i.test(userAgent)) {
-        return "Android";
-      } else if (/windows/i.test(userAgent)) {
-        return "Windows";
-      }
-      return "Unknown";
+        if (/android/i.test(userAgent)) {
+            return "Android";
+        } else if (/windows/i.test(userAgent)) {
+            return "Windows";
+        }
+        return "Unknown";
     }
 
     // Apply changes based on the OS
     function applyOSChanges() {
-      const os = detectOS();
-      const body = document.body;
-      const message = document.getElementById('message');
+        const os = detectOS();
+        const body = document.body;
+        const message = document.getElementById('message');
 
-      if (os === "Android") {
-        body.classList.add('android');
-        message.textContent = "You are using an Android device!";
-      } else if (os === "Windows") {
-        body.classList.add('windows');
-        message.textContent = "You are using a Windows device!";
-      } else {
-        message.textContent = "Operating system not recognized.";
-      }
+        if (os === "Android") {
+            body.classList.add('android');
+            message.textContent = "You are using an Android device!";
+        } else if (os === "Windows") {
+            body.classList.add('windows');
+            message.textContent = "You are using a Windows device!";
+        } else {
+            message.textContent = "Operating system not recognized.";
+        }
     }
 
     // Call the function on page load
     applyOSChanges();
-  </script>
+</script>
 </body>
 </html>
