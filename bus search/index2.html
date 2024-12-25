@@ -121,21 +121,19 @@
         // Initialize AOS (Animation on Scroll)
         AOS.init();
 
-        document.getElementById("searchBtn").onclick = function () {
-    const from = document.getElementById("from").value;
-    const to = document.getElementById("to").value;
+       document.getElementById("searchBtn").onclick = function () {
+    const from = document.getElementById("from").value.trim();
+    const to = document.getElementById("to").value.trim();
     const date = document.getElementById("date").value;
 
     if (from && to && date) {
-        // Encode user inputs to make the query safe
-        const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
-
-        // Redirect to the specified directory and file, appending the query string
-        window.location.href = `https://github.com/Meganathan16/ticket/blob/main/bus%20lists/index3.html${queryString}`;
+        // Redirect to the target page with the query string
+        window.location.href = `buslists/index3.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
     } else {
         alert("Please fill out all fields.");
     }
 };
+
 
 
     </script>
