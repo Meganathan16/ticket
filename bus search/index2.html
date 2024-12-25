@@ -123,19 +123,21 @@
 
         // Handle the "Search Buses" button click
         document.getElementById("searchBtn").onclick = function() {
-            const from = document.getElementById("from").value;
-            const to = document.getElementById("to").value;
-            const date = document.getElementById("date").value;
+    const from = document.getElementById("from").value;
+    const to = document.getElementById("to").value;
+    const date = document.getElementById("date").value;
 
-            if (from && to && date) {
-                const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
-				${queryString}`;
-                // Add your bus search logic here
-                // You can replace the alert with actual API calls or page navigation.
-            } else {
-                alert("Please fill out all fields.");
-            }
-        };
+    if (from && to && date) {
+        const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+        // Add your bus search logic here
+        // For example, redirect to another page or call an API
+        console.log("Query String:", queryString); // Debugging
+        // Example: window.location.href = `/search${queryString}`;
+    } else {
+        alert("Please fill out all fields.");
+    }
+};
+
     </script>
 	 <script>
     // Function to detect the operating system
