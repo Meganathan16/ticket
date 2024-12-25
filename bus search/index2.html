@@ -111,9 +111,22 @@
 
             <label for="date"></label>
             <input type="date" id="date" name="date" placeholder="Date:" required><br><br>
-
-            <button type="button" id="searchBtn" onclick="window.location.href='bus lists/index3.html'">Search Buses</button>
-        </form>
+		<button 
+                type="button" 
+                onclick="
+                    const from = document.getElementById('from').value.trim();
+                    const to = document.getElementById('to').value.trim();
+                    const date = document.getElementById('date').value;
+                    if (from && to && date) {
+                        const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
+                        window.location.href = 'bus lists/index3.html' + queryString;
+                    } else {
+                        alert('Please fill out all fields.');
+                    }
+                ">
+                Search Buses
+            </button>
+            </form>
     </div>
 
     <script src="script.js"></script>
@@ -121,19 +134,7 @@
         // Initialize AOS (Animation on Scroll)
         AOS.init();
 
-       document.getElementById("searchBtn").onclick = function () {
-    const from = document.getElementById("from").value.trim();
-    const to = document.getElementById("to").value.trim();
-    const date = document.getElementById("date").value;
-
-    if (from && to && date) {
-        // Redirect to the target page with the query string
-        window.location.href = `bus lists/index3.html?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
-    } else {
-        alert("Please fill out all fields.");
-    }
-};
-
+       
 
 
     </script>
