@@ -127,12 +127,14 @@
 
             if (from && to && date) {
                 const queryString = `?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&date=${encodeURIComponent(date)}`;
-				location.href = 'index3.html${queryString}';
+				${queryString}';
                 // Add your bus search logic here
                 // You can replace the alert with actual API calls or page navigation.
             } else {
                 alert("Please fill out all fields.");
             }
+	      alert('Login successful! Redirecting...');
+            window.location.href = 'index3.html'; // Redirect to a welcome page
         };
     </script>
 <script>
